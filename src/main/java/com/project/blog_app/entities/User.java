@@ -2,12 +2,15 @@ package com.project.blog_app.entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id",nullable = false)
     private int id;
 
@@ -17,6 +20,17 @@ public class User {
     @Column(nullable = false)
     private String password;
     private String about;
+
+    //ek user ki multiple posts ho skti hai isliye One to many relationship lgai hai.
+    //mapped by me hume wo object rkhna hai jisse ye relationship link ho rhi hai i.e., Post wali class me jo hmara User ka object
+    //hai uska reference rkhna hai yaha par.
+
+    //Cascading :- Entity relationships often depend on the existence of another entity,
+    // for example the Person–Address relationship. Without the Person, the Address entity doesn’t have any meaning of its own.
+    // When we delete the Person entity, our Address entity should also get deleted. Cascading is a way to achieve this.
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Post> posts=new ArrayList<>();
 
     //constructors
 

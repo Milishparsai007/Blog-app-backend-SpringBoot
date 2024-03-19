@@ -18,7 +18,7 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    @PostMapping("/new")
+    @PostMapping("/newUser")
     //response entity isliye use hota hai taki hum response bhej sake hmari reuqest accept hone ke baad http response.
     //esa krne ke liye hume humari method ka type bhi response entity rkhna pdega
     public ResponseEntity<UserDataTransfer> createUser(@Valid @RequestBody UserDataTransfer userDataTransfer) //@Valid is for validation
@@ -56,7 +56,7 @@ public class UserController {
     @DeleteMapping("/{userId}")
     public ResponseEntity<ApiResponse> deleteUser(@PathVariable Integer userId)
     {
-        this.deleteUser(userId);
+        this.userService.deleteUser(userId);
         return new ResponseEntity<ApiResponse>(new ApiResponse("User deleted successfully",true),HttpStatus.OK);
     }
 
